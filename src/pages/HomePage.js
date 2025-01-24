@@ -2,19 +2,16 @@
 import { Link } from "react-router-dom"
 
 const sportCards = [
-  { id: 1, title: "Football", image: "/placeholder.svg?height=200&width=300" },
-  { id: 2, title: "Basketball", image: "/placeholder.svg?height=200&width=300" },
-  { id: 3, title: "Tennis", image: "/placeholder.svg?height=200&width=300" },
-  { id: 4, title: "Swimming", image: "/placeholder.svg?height=200&width=300" },
-  { id: 5, title: "Athletics", image: "/placeholder.svg?height=200&width=300" },
-  { id: 6, title: "Cycling", image: "/placeholder.svg?height=200&width=300" },
-  { id: 7, title: "Golf", image: "/placeholder.svg?height=200&width=300" },
-  { id: 8, title: "Volleyball", image: "/placeholder.svg?height=200&width=300" },
+  { id: 1, title: "Cricket", image: "https://cdn.britannica.com/63/211663-050-A674D74C/Jonny-Bairstow-batting-semifinal-match-England-Australia-2019.jpg" },
+  { id: 2, title: "Basketball", image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGxheSUyMGJhc2tldGJhbGx8ZW58MHx8MHx8fDA%3D" },
+  { id: 3, title: "Tennis", image: "https://courtsidetennis.com/cdn/shop/articles/Untitled-1.png?v=1664521489" },
+  { id: 4, title: "Football", image: "https://cdn.britannica.com/69/228369-050-0B18A1F6/Asian-Cup-Final-2019-Hasan-Al-Haydos-Qatar-Japan-Takumi-Minamino.jpg" },
+  
 ]
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100 flex flex-col justify-between">
       {/* Navbar */}
       <nav className="bg-black text-white p-4">
         <div className="container mx-auto flex justify-between items-center">
@@ -43,9 +40,12 @@ const HomePage = () => {
               <div className="p-4">
                 <h2 className="text-xl font-semibold text-black">{sport.title}</h2>
                 <p className="mt-2 text-gray-600">Explore {sport.title} events and news</p>
-                <button className="mt-4 bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors duration-300">
+                <Link
+                  to={`/tournaments/${sport.title.toLowerCase()}`}
+                  className="mt-4 inline-block bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors duration-300"
+                >
                   Learn More
-                </button>
+                </Link>
               </div>
             </div>
           ))}

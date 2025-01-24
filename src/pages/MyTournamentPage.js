@@ -1,7 +1,6 @@
 
-import { useState } from "react"
 import { Link } from "react-router-dom"
-import { Menu, X,Home } from "lucide-react"
+
 
 // Mock data for rankings
 const rankings = [
@@ -19,22 +18,42 @@ const upcomingMatches = [
   { id: 3, team1: "Team Epsilon", team2: "Team Alpha", date: "2023-06-18", time: "16:00" },
 ]
 
+// Mock data for live cricket score
+const liveScore = {
+  team1: {
+    name: "India",
+    score: 287,
+    wickets: 5,
+    overs: 45.2,
+  },
+  team2: {
+    name: "Australia",
+    score: 185,
+    wickets: 3,
+    overs: 32.1,
+  },
+  currentBatsman: "V. Kohli",
+  currentBowler: "P. Cummins",
+  recentOvers: [".", "1", "4", "W", "2", "6"],
+}
+
 const MyTournamentsPage= () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-between">
+    <div className="min-h-screen bg-gray-100">
       {/* Navbar */}
       <nav className="bg-black text-white p-4">
         <div className="container mx-auto flex justify-between items-center">
-        <div className="text-2xl font-bold">
-            RacingAhead
-          </div>
+          <p className="text-2xl font-bold">
+            RacingAhead 
+          </p>
           
           
-            <Link to="/home" className="block  hover:text-gray-300 px-6">
+            <Link to="/home" className="block md:inline-block hover:text-gray-300">
               Home
             </Link>
+            
+          
           
         </div>
       </nav>
@@ -42,6 +61,52 @@ const MyTournamentsPage= () => {
       {/* Main Content */}
       <main className="container mx-auto py-8 px-4">
         <h1 className="text-4xl font-bold text-center text-black mb-8">My Tournaments</h1>
+
+        {/* Live Score Card */}
+        <div className="bg-white rounded-lg shadow-md p-4 md:p-6 mb-8">
+          <h2 className="text-2xl font-semibold text-black mb-4">Live Cricket Score</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <p className="text-xl font-bold">
+                {liveScore.team1.name}: {liveScore.team1.score}/{liveScore.team1.wickets}
+              </p>
+              <p className="text-gray-600">Overs: {liveScore.team1.overs}</p>
+            </div>
+            <div className="space-y-2">
+              <p className="text-xl font-bold">
+                {liveScore.team2.name}: {liveScore.team2.score}/{liveScore.team2.wickets}
+              </p>
+              <p className="text-gray-600">Overs: {liveScore.team2.overs}</p>
+            </div>
+          </div>
+          <div className="mt-4 space-y-2">
+            <p>
+              <span className="font-semibold">Current Batsman:</span> {liveScore.currentBatsman}
+            </p>
+            <p>
+              <span className="font-semibold">Current Bowler:</span> {liveScore.currentBowler}
+            </p>
+            <div>
+              <span className="font-semibold">Recent Overs:</span>
+              <div className="flex space-x-2 mt-1">
+                {liveScore.recentOvers.map((ball, index) => (
+                  <span
+                    key={index}
+                    className={`w-6 h-6 flex items-center justify-center rounded-full ${
+                      ball === "W"
+                        ? "bg-red-500 text-white"
+                        : ball === "4" || ball === "6"
+                          ? "bg-green-500 text-white"
+                          : "bg-gray-200"
+                    }`}
+                  >
+                    {ball}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div className="space-y-8 md:space-y-0 md:grid md:grid-cols-2 md:gap-8">
           {/* Current Rankings */}
@@ -92,7 +157,7 @@ const MyTournamentsPage= () => {
       {/* Footer */}
       <footer className="bg-black text-white py-4 mt-8">
         <div className="container mx-auto text-center">
-        <p>&copy; 2023 RacingAhead PVT LTD. All rights reserved.</p>
+          <p>&copy; 2021 RacingAhead. All rights reserved.</p>
         </div>
       </footer>
     </div>
@@ -100,3 +165,4 @@ const MyTournamentsPage= () => {
 }
 
 export default MyTournamentsPage
+
