@@ -1,5 +1,6 @@
 
 import { Link } from "react-router-dom"
+import NavBar from "./components/NavBar"
 
 
 // Mock data for rankings
@@ -42,21 +43,7 @@ const MyTournamentsPage= () => {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Navbar */}
-      <nav className="bg-black text-white p-4">
-        <div className="container mx-auto flex justify-between items-center">
-          <p className="text-2xl font-bold">
-            RacingAhead 
-          </p>
-          
-          
-            <Link to="/home" className="block md:inline-block hover:text-gray-300">
-              Home
-            </Link>
-            
-          
-          
-        </div>
-      </nav>
+      <NavBar/>
 
       {/* Main Content */}
       <main className="container mx-auto py-8 px-4">

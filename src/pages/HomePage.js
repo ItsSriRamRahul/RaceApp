@@ -1,5 +1,6 @@
 
 import { Link } from "react-router-dom"
+import NavBar from "./components/NavBar"
 
 const sportCards = [
   { id: 1, title: "Cricket", image: "https://cdn.britannica.com/63/211663-050-A674D74C/Jonny-Bairstow-batting-semifinal-match-England-Australia-2019.jpg" },
@@ -13,22 +14,10 @@ const HomePage = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-between">
       {/* Navbar */}
-      <nav className="bg-black text-white p-4">
-        <div className="container mx-auto flex justify-between items-center">
-        <div className="text-2xl font-bold">
-            RacingAhead
-          </div>
-          <div className="space-x-4">
-            
-            <Link to="/MyTournament" className="hover:text-gray-300">
-              My tournaments
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <NavBar></NavBar>
 
       {/* Main Content */}
-      <main className="container mx-auto py-8">
+      <main className="container mx-auto py-8 z-0">
         <h1 className="text-4xl font-bold text-center text-black mb-8">Explore Sports</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {sportCards.map((sport) => (
