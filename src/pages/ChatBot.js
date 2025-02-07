@@ -30,7 +30,7 @@ const ChatBot = () => {
   return (
     <div className="flex flex-col h-screen bg-gray-100">
         <NavBar/>
-      <div className="flex-1 overflow-y-auto p-4">
+      <div className="flex-1 overflow-y-auto md:px-40">
         <div className="space-y-4 md:mx-10">
             <div className={`my-52 flex flex-col justify-center items-center ${isclick ? "hidden":"block"}`}><p className='p-5 text-xl text-slate-600'>Hello ,I am your Agent</p> <Bot size={32}/></div>
           {messages.map((message, index) => (
@@ -43,15 +43,33 @@ const ChatBot = () => {
         </div>
       </div>
       <div className='px-4'>
-        <button onClick={
-          ()=>{
-            handleSendMessage(prompts[id])
-            
+
+      <div className=' justify-center items-center hidden md:flex'> 
+        {prompts.map((id,index)=>{
+          return (<button onClick={
+            ()=>{
+              handleSendMessage(prompts[index])
+              
+            }
           }
-        }
-        className='bg-slate-600 w-fit p-4 text-white rounded-xl flex justify-center '>
-        {prompts[id]}</button>
+          className='bg-slate-600 w-fit p-4 text-white rounded-xl flex justify-center mx-8 '>
+          {prompts[index]}</button>
+           );
+        })}
         </div>
+
+        </div>
+        <button
+         onClick={
+            ()=>{
+              handleSendMessage(prompts[id])
+              
+            }
+          }
+          className='bg-slate-600 w-fit p-4 text-white rounded-xl flex justify-center mx-8 md:hidden '>
+          {prompts[id]}</button>
+
+
       <div className="p-4">
         <form
           onSubmit={(e) => {
