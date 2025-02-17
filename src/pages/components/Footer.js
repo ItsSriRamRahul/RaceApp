@@ -2,7 +2,7 @@ import React from 'react'
 
 function Footer() {
   return (
-    <div className='w-full bottom-0'>  
+    <div className='w-full fixed bottom-0'>  
 
 
     

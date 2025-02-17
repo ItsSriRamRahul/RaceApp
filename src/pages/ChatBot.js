@@ -1,7 +1,18 @@
 import React, { useState,useEffect} from 'react';
 import NavBar from './components/NavBar';
 import { Bot } from 'lucide-react';
+import { ChatOpenAI
+ } from '@langchain/openai';
 
+ 
+ import { StringOutputParser } from '@langchain/core/output_parsers';
+
+ const model = new  ChatOpenAI({
+  model: "gpt-4o-mini",
+  temperature: 0,
+  apiKey:process.env.REACT_APP_OPENAI_API_KEY
+  
+ })
 const ChatBot = () => {
   const prompts=[
     'Book a Doctor appointment',
@@ -9,6 +20,8 @@ const ChatBot = () => {
     'Summarize My Performance',
     
   ]
+  const outputParser = new StringOutputParser();
+    const chain = model.pipe(outputParser)
   const [id,setId]=useState()
   useEffect(()=>{
     const val = Math.round(Math.random())*2
@@ -16,15 +29,20 @@ const ChatBot = () => {
   },[])
   const [messages, setMessages] = useState([]);
   const [isclick,setClick] = useState(false)
-  const handleSendMessage = (message) => {
+  const [load,isLoading]=useState(false)
+  const handleSendMessage = async(message) => {
     setClick(true)
+    isLoading(true)
     // Add message to state (for demo, you can replace with your logic)
     setMessages(prevMessages => [...prevMessages, { text: message, sender: 'user' }]);
     // Here you would typically send the message to your AI agent and handle the response
     // For now, let's simulate a response after a short delay
-    setTimeout(() => {
-      setMessages(prevMessages => [...prevMessages, { text: 'Hello! How can I assist you today?', sender: 'agent' }]);
-    }, 1000);
+    
+     var res =await chain.invoke(message)
+    isLoading(false)
+   
+      setMessages(prevMessages => [...prevMessages, { text: res, sender: 'agent' }]);
+    
   };
 
   return (
@@ -34,12 +52,16 @@ const ChatBot = () => {
         <div className="space-y-4 md:mx-10">
             <div className={`my-52 flex flex-col justify-center items-center ${isclick ? "hidden":"block"}`}><p className='p-5 text-xl text-slate-600'>Hello ,I am your Agent</p> <Bot size={32}/></div>
           {messages.map((message, index) => (
-            <div key={index} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-              <div className={`p-4 rounded-2xl ${message.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'}`}>
+            <div key={index} className={`flex justify-start px-4 w-fit flex-col`}>
+              
+              <div className={`p-4 rounded-2xl ${message.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'} w-fit`}>
                 {message.text}
               </div>
             </div>
           ))}
+          <div className={`${load?'block':'hidden'} bg-black text-white text-2xl w-fit p-4 rounded-lg mx-4`}>
+                loading.....
+              </div>
         </div>
       </div>
       <div className='px-4'>
